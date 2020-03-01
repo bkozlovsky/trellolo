@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+
+{% block index %}
+
+<div class="container-fluid">{% include 'navbar.html' %}</div>
+
+
+<div class="container-fluid">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible text-center" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+    <div class="row flex-nowrap">
+      <div id="NW" class="col list" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+        <div class="bg-light rounded list-body">
+          <h6 class="text-uppercase text-truncate pt-3 px-3">New</h6>
+          <div class="ded px-2">
+            {% for newcard in new_list %}
+            <div id="{{ newcard.id }}" draggable="true" ondragstart="drag(event)" class="card shadow-sm rounded mb-2">
+              <div id="senduserobject" user="{{ user }}" class="card-body p-2">
+                <div class="card-title">
+                  <a href="{% url 'card_update' newcard.id %}" class="font-weight-light">ID-{{ newcard.id }}</a>
+                  <p class="card-text mt-4">{{ newcard.name }}</p>
+                  <p><span class="badge badge-pill badge-primary float-right">{{ newcard.assignee }}</span></p>
+                </div>
+                <div class="btn-toolbar pull-right">
+                  <a id="updatecardurl" type="button" class="btn btn-primary btn-sm mr-1" href="{% url 'card_update' newcard.id %}">View</a>
+                  <form method="post" action="{% url 'card_delete' newcard.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm mr-1">Delete</button>
+                  </form>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div id="INP" class="col list" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+        <div class="bg-light rounded list-body">
+          <h6 class="card-title text-uppercase text-truncate pt-3 px-3">In progess</h6>
+          <div class="ded px-2">
+            {% for inpcard in in_progress_list %}
+            <div id="{{ inpcard.id }}" draggable="true" ondragstart="drag(event)" class="card shadow-sm rounded mb-2">
+              <div id="senduserobject" user="{{ user }}" class="card-body p-2">
+                <div class="card-title">
+                  <a href="{% url 'card_update' inpcard.id %}" class="font-weight-light">ID-{{ inpcard.id }}</a>
+                  <p class="card-text mt-4">{{ inpcard.name }}</p>
+                  <p><span class="badge badge-pill badge-primary float-right">{{ inpcard.assignee }}</span></p>
+                </div>
+                <div class="btn-toolbar pull-right">
+                  <a id="updatecardurl" type="button" class="btn btn-primary btn-sm mr-1" href="{% url 'card_update' inpcard.id %}">View</a>
+                  <form method="post" action="{% url 'card_delete' inpcard.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm mr-1">Delete</button>
+                  </form>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div id="INQ" class="col list" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+        <div class="bg-light rounded list-body">
+          <h6 class="card-title text-uppercase text-truncate pt-3 px-3">In QA</h6>
+          <div class="ded px-2">
+            {% for inqcard in in_qa_list %}
+            <div id="{{ inqcard.id }}" draggable="true" ondragstart="drag(event)" class="card shadow-sm rounded mb-2">
+              <div id="senduserobject" user="{{ user }}" class="card-body p-2">
+                <div class="card-title">
+                  <a href="{% url 'card_update' inqcard.id %}" class="font-weight-light">ID-{{ inqcard.id }}</a>
+                  <p class="card-text mt-4">{{ inqcard.name }}</p>
+                  <p><span class="badge badge-pill badge-primary float-right">{{ inqcard.assignee }}</span></p>
+                </div>
+                <div class="btn-toolbar pull-right">
+                  <a id="updatecardurl" type="button" class="btn btn-primary btn-sm mr-1" href="{% url 'card_update' inqcard.id %}">View</a>
+                  <form method="post" action="{% url 'card_delete' inqcard.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm mr-1">Delete</button>
+                  </form>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div id="RD" class="col list" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+        <div class="bg-light rounded list-body">
+          <h6 class="card-title text-uppercase text-truncate pt-3 px-3">Ready</h6>
+          <div class="ded px-2">
+            {% for readycard in ready_list %}
+            <div id="{{ readycard.id }}" draggable="true" ondragstart="drag(event)" class="card shadow-sm rounded mb-2">
+              <div id="senduserobject" user="{{ user }}" class="card-body p-2">
+                <div class="card-title">
+                  <a href="{% url 'card_update' readycard.id %}" class="font-weight-light">ID-{{ readycard.id }}</a>
+                  <p class="card-text mt-4">{{ readycard.name }}</p>
+                  <p><span class="badge badge-pill badge-primary float-right">{{ readycard.assignee }}</span></p>
+                </div>
+                <div class="btn-toolbar pull-right">
+                  <a id="updatecardurl" type="button" class="btn btn-primary btn-sm mr-1" href="{% url 'card_update' readycard.id %}">View</a>
+                  <form method="post" action="{% url 'card_delete' readycard.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm mr-1">Delete</button>
+                  </form>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div id="DN" class="col list" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+        <div class="bg-light rounded list-body">
+          <h6 class="card-title text-uppercase text-truncate pt-3 px-3">Done</h6>
+          <div class="ded px-2">
+            {% for donecard in done_list %}
+            <div id="{{ donecard.id }}" draggable="true" ondragstart="drag(event)" class="card shadow-sm rounded mb-2">
+              <div id="senduserobject" user="{{ user }}" class="card-body p-2">
+                <div class="card-title">
+                  <a href="{% url 'card_update' donecard.id %}" class="font-weight-light">ID-{{ donecard.id }}</a>
+                  <p class="card-text mt-4">{{ donecard.name }}</p>
+                  <p><span class="badge badge-pill badge-primary float-right">{{ donecard.assignee }}</span></p>
+                </div>
+                <div class="btn-toolbar pull-right">
+                  <a id="updatecardurl" type="button" class="btn btn-primary btn-sm mr-1" href="{% url 'card_update' donecard.id %}">View</a>
+                  <form method="post" action="{% url 'card_delete' donecard.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm mr-1">Delete</button>
+                  </form>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal 1 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/create/">
+          {% csrf_token %}
+          <div class="form-group">
+            <label>Card Name</label>
+            <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                  {{ form.name }}
+              </div>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                {{ form.description }}
+              </div>
+          </div>
+          <div class="form-group">
+            <label>Assignee</label>
+            <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                  {{ form.assignee }}
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

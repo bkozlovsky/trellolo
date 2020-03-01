@@ -1,0 +1,21 @@
+.scroll {
+    overflow-x: auto;
+    white-space: wrap;
+  }
+.list {
+  min-width: 350px;
+  padding: 7.5px;
+}
+.list-body{
+  height: calc(100vh - 75px);
+}
+.ded {
+  height: calc(100vh - 135px);
+  overflow-y: scroll;
+}
+
+@import "compass/css3";
+
+body{
+  padding: 10px;
+}

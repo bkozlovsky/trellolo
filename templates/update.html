@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block updateform %}
+
+<style type="text/css">
+	.login-form {
+		width: 340px;
+		margin: 50px auto;
+	}
+    .login-form form {
+    	margin-bottom: 15px;
+        background: #f7f7f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+    .login-form h2 {
+        margin: 0 0 15px;
+    }
+    .form-control, .btn {
+        min-height: 38px;
+        border-radius: 2px;
+    }
+	.input-group-addon .fa {
+        font-size: 18px;
+    }
+    .btn {
+        font-size: 15px;
+        font-weight: bold;
+    }
+</style>
+
+<div class="login-form">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+        <label>Card Name</label>
+        <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                {{ form.name }}
+            </div>
+        </div>
+        <div class="form-group">
+        <label>Description</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+            {{ form.description }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Creator: <span class="badge badge-warning">{{ card_creator }}</span></label>
+        </div>
+        <div class="form-group">
+        <label>Assignee</label>
+        <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                {{ form.assignee }}
+        </div>
+        </div>
+        <div class="form-group">
+            <label>Status</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                {{ form.status }}
+            </div>
+            </div>
+        <div class="modal-footer">
+        <a type="button" class="btn btn-secondary" data-dismiss="modal" href="/">Close</a>
+        <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

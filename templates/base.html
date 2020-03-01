@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev, elm) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+            var endpoint = document.getElementById('updatecardurl').getAttribute('href');
+            var userobject = document.getElementById('senduserobject').getAttribute('user');
+            $.ajax({
+                type: 'POST',
+                url: endpoint,
+                data: {
+                    'element_id': elm.id,
+                    'card_id': data,
+                    'user_object': userobject
+                },
+                headers:{
+                    "X-CSRFToken": '{{ csrf_token }}'
+                },
+                success: $(document).ajaxStop(function(){
+                    window.setTimeout(function() {
+                        window.location.reload();
+                    }, 100);
+                }),
+            });
+        }
+
+        window.setTimeout(function() {
+            $(".alert").fadeTo(0, 0).slideUp(0, function(){
+                $(this).remove();
+            });
+        }, 4000);
+    </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trellolo</title>
+    {% block customcss %}
+    {% endblock %}
+</head>
+<body>
+
+    {% block index %}
+    {% endblock %}
+
+    {% block loginform %}
+    {% endblock %}
+
+    {% block updateform %}
+    {% endblock %}
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
